@@ -1,0 +1,21 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context="com.example.matthew.homework4.MainView">
+
+    <item android:id="@+id/action_friends"
+          android:icon="@drawable/friend_icon"
+          android:title="@string/friends"
+          app:showAsAction="ifRoom"
+        />
+    <item android:id="@+id/action_add"
+          android:icon="@drawable/add_icon"
+          android:title="@string/add"
+          app:showAsAction="ifRoom"
+        />
+    <item android:id="@+id/action_logout"
+          android:icon="@drawable/logout_icon"
+          android:title="@string/logout"
+          app:showAsAction="ifRoom"
+        />
+</menu>

@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">Homework4</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="login">LOGIN</string>
+    <string name="intro">It\'s time to remind others of what\'s important.</string>
+    <string name="title_activity_main_view">MainView</string>
+    <string name="title_activity_sign_up">signUpActivity</string>
+    <string name="joinTitle">Join Taskworker!</string>
+    <string name="username">Username</string>
+    <string name="subtitle">Make life easier</string>
+    <string name="pass">Password</string>
+    <string name="cPass">Confirm Password</string>
+    <string name="email">Email Address</string>
+    <string name="create">Create Account</string>
+    <string name="user">Username</string>
+    <string name="passw">Password</string>
+    <string name="logout">Logout</string>
+    <string name="friends">Friends</string>
+    <string name="add">Add</string>
+    <string name="title_activity_friends">FriendsActivity</string>
+    <string name="title_activity_add">AddActivity</string>
+    <string name="back">Back</string>
+    <string name="friendAdd">Friend\'s Username</string>
+    <string name="delete">Delete</string>
+    <string name="friendNamePush">Choose friend to push</string>
+    <string name="friendToDo">What do you want him to do?</string>
+    <string name="friendWhenTV">When do you want him to do it?</string>
+    <string name="friendDate">Date</string>
+    <string name="friendTime">Time</string>
+</resources>
