@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.text.InputType;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -141,47 +140,60 @@ public class AddActivity extends ActionBarActivity {
                 name = mPushName.getText().toString();
                 toDo = mPushToDo.getText().toString();
                 dateTime = mDateText.getText().toString() + " " + mTimeText.getText().toString();
+                if (name.equals("") | toDo.equals("") | mDateText.getText().toString().equals("") | mTimeText.getText().toString().equals("")){
+                    alertMessage("Please fill in the empty fields.");
+                    //checks for empty fields
+                }
+
+                else{
+                final List friendsList = ParseUser.getCurrentUser().getList("friendsList");
                 check.findInBackground(new FindCallback<ParseUser>() {
                     @Override
-                    public void done(List<ParseUser> friendsList, ParseException e) {
+                    public void done(List<ParseUser> usersList, ParseException e) {
                         if (e == null) {
-                            for (int i = 0; i < friendsList.size(); i++) {
-                                if (friendsList.get(i).getUsername().equals(name)) {
+                            for (int i = 0; i < usersList.size(); i++) {
+                                for (int k = 0; k < friendsList.size(); k++) {
+                                if (usersList.get(i).getUsername().equals(name)&& usersList.get(i).getUsername().equals(friendsList.get(k))) {
                                     String push = "Hey! " + ParseUser.getCurrentUser().getUsername() + " has just pushed you to do " + toDo + " by " + dateTime + "! Don't forget!";
                                     ParseObject pushed = new ParseObject("Push");
                                     ParseACL groupACL = new ParseACL();
                                     pushed.put("pushString", push);
-                                    pushed.put("destination", friendsList.get(i));
-                                    ArrayList <ParseUser> userList = new ArrayList<>();
+                                    pushed.put("destination", usersList.get(i));
+                                    ArrayList<ParseUser> userList = new ArrayList<>();
                                     userList.add(ParseUser.getCurrentUser());
-                                    userList.add(friendsList.get(i));
+                                    userList.add(usersList.get(i));
                                     for (ParseUser user : userList) {
                                         groupACL.setReadAccess(user, true);
                                         groupACL.setWriteAccess(user, true);
                                     }
 
                                     pushed.setACL(groupACL);
-                                    pushed.saveInBackground();
-                                                Intent intent = new Intent(AddActivity.this, MainView.class);
-                                                AddActivity.this.startActivity(intent);
+                                    pushed.saveInBackground(new SaveCallback() {
+                                        @Override
+                                        public void done(ParseException e) {
+                                            Intent intent = new Intent(AddActivity.this, MainView.class);
+                                            AddActivity.this.startActivity(intent);
 
+
+                                        }
+                                    });
                                     break;
 
-
-                                } else if (i == friendsList.size()) {
-                                    Toast.makeText(getApplicationContext(), "This user does not exist.", Toast.LENGTH_LONG).show();
+                                } else if (i == usersList.size()) {
+                                    mPushName.setText("");
+                                    Toast.makeText(getApplicationContext(), "This user is not your friend.", Toast.LENGTH_LONG).show();
                                     break;
                                 }
 
                             }
-
+                        }
                         } else {
                             Toast.makeText(getApplicationContext(), "This user does not exist.", Toast.LENGTH_LONG).show();
                         }
                     }
 
 
-                });}
+                });}}
 
                 //TODO Try to put the pushes into an array to put into the destination ParseUser.
             });
@@ -211,5 +223,10 @@ public class AddActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void alertMessage(String Message)
+    {
+        Toast.makeText(AddActivity.this, Message, Toast.LENGTH_SHORT).show();
     }
 }

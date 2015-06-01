@@ -29,4 +29,5 @@
     <string name="friendWhenTV">When do you want him to do it?</string>
     <string name="friendDate">Date</string>
     <string name="friendTime">Time</string>
+    <string name="taskworker">Taskworker</string>
 </resources>

@@ -102,14 +102,20 @@ public class OnNoLogin extends ActionBarActivity {
         mPasswordField = (EditText) mTextEntryView.findViewById(R.id.passwordEditText2);
         usernameInput = mUsernameField.getText().toString();
         passwordInput = mPasswordField.getText().toString();
-        try {
-            ParseUser.logIn(usernameInput, passwordInput);
-        } catch (ParseException e) {
-            alertMessage("Login failed. Please try again.");
+        if (usernameInput.equals("") | passwordInput.equals("")){
+            alertMessage("Please fill in the empty fields.");
+            //checks for empty fields
         }
-        Intent intent = new Intent (this, MainView.class);
-        this.startActivity(intent);
+        else {
+            try {
+                ParseUser.logIn(usernameInput, passwordInput);
+            } catch (ParseException e) {
+                alertMessage("Login failed. Please try again.");
+            }
+            MainView.isLogin = true;
+            Intent intent = new Intent(this, MainView.class);
+            this.startActivity(intent);
 
-
+        }
     }
 }
